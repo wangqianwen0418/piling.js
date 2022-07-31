@@ -57,7 +57,9 @@ const createColorMap = (interpolator, numColors = 512, invert = false) => {
 };
 
 const createPiling = async (element, darkMode) => {
-  const response = await fetch('data/rao-2014-gm12878-chr-22-peaks.json');
+  const response = await fetch(
+    'https://piling.js.org/demos/data/rao-2014-gm12878-chr-22-peaks.json'
+  );
   const data = await response.json();
 
   const domain = [0, 1];

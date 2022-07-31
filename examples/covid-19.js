@@ -84,7 +84,7 @@ const create = async (element, darkMode) => {
 
   element.appendChild(pilingEl);
 
-  let data = await fetch('data/covid-19.json');
+  let data = await fetch('https://piling.js.org/demos/data/covid-19.json');
   data = await data.json();
 
   const numDays = data.US.cases.length;

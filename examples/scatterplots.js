@@ -18,7 +18,9 @@ const colorRangeDarkMode = [
 ];
 
 const createScatterplotPiles = async (element, darkMode = false) => {
-  const response = await fetch('data/worldbank.json');
+  const response = await fetch(
+    'https://piling.js.org/demos/data/worldbank.json'
+  );
   const data = await response.json();
 
   const items = [];

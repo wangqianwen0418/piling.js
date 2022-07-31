@@ -3,7 +3,9 @@ import createPilingJs from '../src/library';
 import { createSvgRenderer } from '../src/renderer';
 
 const create = async (element, darkMode) => {
-  const response = await fetch('data/monthly_temp_deviation_decades.json');
+  const response = await fetch(
+    'https://piling.js.org/demos/data/monthly_temp_deviation_decades.json'
+  );
   const data = await response.json();
 
   const { width } = element.getBoundingClientRect();

@@ -6,7 +6,9 @@ import { createScale } from '../src/utils';
 const createPhotoPiles = async (element, darkMode) => {
   const imageRenderer = createImageRenderer();
 
-  const response = await fetch('data/coco-cars.json');
+  const response = await fetch(
+    'https://piling.js.org/demos/data/coco-cars.json'
+  );
   const data = await response.json();
 
   // Extract categories

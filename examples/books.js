@@ -7,7 +7,7 @@ import createPilingJs, {
 const createBookPiles = async (element, darkMode) => {
   const imageRenderer = createImageRenderer();
 
-  const response = await fetch('data/books.json');
+  const response = await fetch('https://piling.js.org/demos/data/books.json');
   const items = await response.json();
   const renderer = imageRenderer;
 

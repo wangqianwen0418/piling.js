@@ -20,7 +20,9 @@ const createPiling = async (element, darkMode) => {
   let response = await fetch(METADATA_URL);
   const metadata = await response.json();
 
-  response = await fetch('data/vitessce-sample.json');
+  response = await fetch(
+    'https://piling.js.org/demos/data/vitessce-sample.json'
+  );
   const data = await response.json();
 
   // Stratify cells by factors
