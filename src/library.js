@@ -2020,12 +2020,10 @@ const createPilingJs = (rootElement, initProps = {}) => {
     }
   };
 
-  const extractItemFromPile = (pileId, itemId) => {
+  const extractItemsFromPile = (pileId, itemIds) => {
     const { piles } = store.state;
-    const itemIds = piles[pileId].items
-      .map((item) => item.id)
-      .filter((d) => d !== itemId);
-    const splits = { [pileId]: [itemIds, [itemId]] };
+    const leftItemIds = piles[pileId].items.filter((d) => !itemIds.includes(d));
+    const splits = { [pileId]: [leftItemIds, itemIds] };
     store.dispatch(createAction.splitPiles(splits));
   };
 
@@ -4781,8 +4779,9 @@ const createPilingJs = (rootElement, initProps = {}) => {
             store.dispatch(createAction.setDepiledPile([results[0].id]));
           } else if (depileMethod === 'hoveredOne') {
             // store.dispatch(createAction.setDepiledPile([results[0].id]));
-            const itemId = pileInstances.get(results[0].id).previewItemId;
-            extractItemFromPile(results[0].id, itemId);
+            const pileInstance = pileInstances.get(results[0].id);
+            const itemId = pileInstance.previewItemId;
+            extractItemsFromPile(pileInstance.id, [itemId]);
           }
           store.dispatch(createAction.setFocusedPiles([]));
         } else {

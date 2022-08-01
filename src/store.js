@@ -609,10 +609,10 @@ const piles = (previousState = {}, action) => {
         // If there is only one split group we don't have to do anything
         .filter((splittedPiles) => splittedPiles[1].length > 1)
         .forEach(([source, splits]) => {
-          splits.forEach((itemIds) => {
+          splits.forEach((itemIds, idx) => {
             newState[itemIds[0]] = {
               ...newState[itemIds[0]],
-              x: newState[source].x + (itemIds.length === 1 ? 5 : 0),
+              x: newState[source].x + idx * 50,
               y: newState[source].y,
               items: [...itemIds],
             };
