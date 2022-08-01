@@ -4639,10 +4639,10 @@ const createPilingJs = (rootElement, initProps = {}) => {
   const depileBtnClick = (contextMenuElement, pileId) => () => {
     const { depileMethod } = store.state;
 
-    if (depileMethod === 'originalPos') {
-      depileToOriginPos(pileId);
-    } else if (depileMethod === 'cloestPos') {
+    if (depileMethod === 'cloestPos') {
       store.dispatch(createAction.setDepiledPile([pileId]));
+    } else {
+      depileToOriginPos(pileId);
     }
     store.dispatch(createAction.setFocusedPiles([]));
     hideContextMenu(contextMenuElement);

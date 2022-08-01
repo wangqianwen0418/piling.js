@@ -65,7 +65,7 @@ const STYLES = {
 
 const TEMPLATE = `<ul id="piling-js-context-menu-list">
   <li>
-    <button id="depile-button">Depile</button>
+    <button id="depile-button">Depile All</button>
   </li>
   <li>
     <button id="extract-item-button">Extract Item</button>
