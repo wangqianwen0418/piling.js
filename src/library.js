@@ -2020,6 +2020,15 @@ const createPilingJs = (rootElement, initProps = {}) => {
     }
   };
 
+  const extractItemFromPile = (pileId, itemId) => {
+    const { piles } = store.state;
+    const itemIds = piles[pileId].items
+      .map((item) => item.id)
+      .filter((d) => d !== itemId);
+    const splits = { [pileId]: [itemIds, [itemId]] };
+    store.dispatch(createAction.splitPiles(splits));
+  };
+
   const animateTempDepileItem = (item, x, y, { onDone = identity } = {}) => {
     animator.add(
       createTweener({
@@ -4770,6 +4779,10 @@ const createPilingJs = (rootElement, initProps = {}) => {
             depileToOriginPos(results[0].id);
           } else if (depileMethod === 'cloestPos') {
             store.dispatch(createAction.setDepiledPile([results[0].id]));
+          } else if (depileMethod === 'hoveredOne') {
+            // store.dispatch(createAction.setDepiledPile([results[0].id]));
+            const itemId = pileInstances.get(results[0].id).previewItemId;
+            extractItemFromPile(results[0].id, itemId);
           }
           store.dispatch(createAction.setFocusedPiles([]));
         } else {

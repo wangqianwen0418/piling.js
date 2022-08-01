@@ -612,7 +612,7 @@ const piles = (previousState = {}, action) => {
           splits.forEach((itemIds) => {
             newState[itemIds[0]] = {
               ...newState[itemIds[0]],
-              x: newState[source].x,
+              x: newState[source].x + (itemIds.length === 1 ? 5 : 0),
               y: newState[source].y,
               items: [...itemIds],
             };

@@ -97,6 +97,7 @@ const createPile = (
 
   let cover;
   let whenCover;
+  let previewItemId;
 
   let isFocus = false;
   let isTempDepiled = false;
@@ -146,6 +147,7 @@ const createPile = (
         const clonedSprite = clonePileItemSprite(item);
         hoverItemContainer.addChild(clonedSprite);
         coverContainer.visible = false;
+        previewItemId = item.id;
         if (hasPreviewItem(item)) {
           const {
             previewBorderColor,
@@ -1662,6 +1664,9 @@ const createPile = (
     },
     get previewItemContainer() {
       return previewItemContainer;
+    },
+    get previewItemId() {
+      return previewItemId;
     },
     get items() {
       return [...allItems];
