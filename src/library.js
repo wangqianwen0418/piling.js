@@ -4782,6 +4782,8 @@ const createPilingJs = (rootElement, initProps = {}) => {
             const pileInstance = pileInstances.get(results[0].id);
             const itemId = pileInstance.previewItemId;
             extractItemsFromPile(pileInstance.id, [itemId]);
+            const item = renderedItems.get(itemId);
+            pileInstance.itemOutHandler({ item });
           }
           store.dispatch(createAction.setFocusedPiles([]));
         } else {
@@ -5009,6 +5011,7 @@ const createPilingJs = (rootElement, initProps = {}) => {
     const toggleGridBtn = element.querySelector('#grid-button');
     const alignBtn = element.querySelector('#align-button');
     const magnifyBtn = element.querySelector('#magnify-button');
+    const extractBtn = element.querySelector('#extract-item-button');
 
     // click on pile
     if (clickedOnPile) {
@@ -5042,16 +5045,22 @@ const createPilingJs = (rootElement, initProps = {}) => {
       if (pile.isMagnified) {
         magnifyBtn.innerHTML = 'Unmagnify';
       }
-
       element.style.display = 'block';
-
       const { width } = element.getBoundingClientRect();
-      if (currMousePos[0] > canvas.getBoundingClientRect().width - width) {
-        element.style.left = `${currMousePos[0] - width}px`;
-      } else {
-        element.style.left = `${currMousePos[0]}px`;
-      }
-      element.style.top = `${currMousePos[1] + stage.y}px`;
+      // a workaround to keep preview while context menu
+      element.style.left = `${pile.x - width}px`;
+      element.style.top = `${currMousePos[1] + stage.y - 10}px`;
+
+      extractBtn.addEventListener(
+        'click',
+        () => {
+          extractItemsFromPile(pile.id, [
+            pileInstances.get(pile.id).previewItemId,
+          ]);
+          hideContextMenu(element);
+        },
+        EVENT_LISTENER_PASSIVE
+      );
 
       depileBtn.addEventListener(
         'click',

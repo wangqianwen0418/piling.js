@@ -1710,6 +1710,8 @@ const createPile = (
     getMoveToTweener,
     getItemById,
     hasItem,
+    itemOverHandler,
+    itemOutHandler,
     magnifyByWheel,
     magnify,
     moveTo,
