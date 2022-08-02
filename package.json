@@ -52,7 +52,7 @@
     "watch": "rollup -cw"
   },
   "lint-staged": {
-    "*.js": [
+    "*.js, !dist/*.js": [
       "pretty-quick --staged",
       "eslint --fix",
       "git add"

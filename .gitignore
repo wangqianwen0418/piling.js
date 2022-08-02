@@ -16,7 +16,7 @@ pids
 logs
 results
 
-dist/*
+# dist/*
 dist.zip
 
 npm-debug.log
