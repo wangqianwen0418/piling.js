@@ -79,11 +79,12 @@ const createLevels = (
   { element, store },
   {
     darkMode: initialDarkMode = false,
-    maxDepth: initialMaxDepth = 3,
+    maxDepth: initialMaxDepth = 2,
     onEnter = toVoid,
     onLeave = toVoid,
   } = {}
 ) => {
+  let currSourcePileIds = [];
   let darkMode = initialDarkMode;
   let maxDepth = initialMaxDepth;
 
@@ -191,6 +192,8 @@ const createLevels = (
     const nextStateId = getStateId(pileIds);
     const currStateId = getCurrentStateId();
 
+    currSourcePileIds = pileIds;
+
     if (prevStates.length >= maxDepth) {
       console.warn(`Not allowed! You reached the maximum depth (${maxDepth})`);
       return;
@@ -268,6 +271,9 @@ const createLevels = (
 
   return pipe(
     withStaticProperty('nav', breadcrumbsEl),
+    withReadOnlyProperty('currSourcePileIds', () => currSourcePileIds),
+    withReadOnlyProperty('prevStates', () => prevStates),
+    withReadOnlyProperty('stateIds', () => currStateIds),
     withReadOnlyProperty('size', () => prevStates.length),
     withConstructor(createLevels)
   )({

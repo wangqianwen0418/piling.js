@@ -5011,7 +5011,7 @@ const createPilingJs = (rootElement, initProps = {}) => {
     const toggleGridBtn = element.querySelector('#grid-button');
     const alignBtn = element.querySelector('#align-button');
     const magnifyBtn = element.querySelector('#magnify-button');
-    const extractBtn = element.querySelector('#extract-item-button');
+    const extractBtn = element.querySelector('#extract-button');
 
     // click on pile
     if (clickedOnPile) {
@@ -5051,16 +5051,32 @@ const createPilingJs = (rootElement, initProps = {}) => {
       element.style.left = `${pile.x - width}px`;
       element.style.top = `${currMousePos[1] + stage.y - 10}px`;
 
-      extractBtn.addEventListener(
-        'click',
-        () => {
-          extractItemsFromPile(pile.id, [
-            pileInstances.get(pile.id).previewItemId,
-          ]);
-          hideContextMenu(element);
-        },
-        EVENT_LISTENER_PASSIVE
-      );
+      if (levels.size < 1) {
+        extractBtn.addEventListener(
+          'click',
+          () => {
+            extractItemsFromPile(pile.id, [
+              pileInstances.get(pile.id).previewItemId,
+            ]);
+            hideContextMenu(element);
+          },
+          EVENT_LISTENER_PASSIVE
+        );
+      } else {
+        if (pile.size > 1) {
+          extractBtn.innerHTML = 'Extract This Pile';
+        }
+        extractBtn.addEventListener(
+          'click',
+          () => {
+            const itemIds = pile.items.map((d) => d.id);
+            const sourcePileId = levels.currSourcePileIds[0];
+            levels.leaveAll();
+            extractItemsFromPile(sourcePileId, itemIds);
+          },
+          EVENT_LISTENER_PASSIVE
+        );
+      }
 
       depileBtn.addEventListener(
         'click',
@@ -5109,6 +5125,7 @@ const createPilingJs = (rootElement, initProps = {}) => {
       tempDepileBtn.style.display = 'none';
       browseSeparatelyBtn.style.display = 'none';
       magnifyBtn.style.display = 'none';
+      extractBtn.style.display = 'none';
 
       if (showGrid) {
         toggleGridBtn.innerHTML = 'Hide Grid';
