@@ -227,6 +227,11 @@ const createLevels = (
       return;
     }
 
+    if (prevStates.length === 1) {
+      leaveAll();
+      return;
+    }
+
     removeLastChild(breadcrumbsListEl);
     styleNavButtons();
 

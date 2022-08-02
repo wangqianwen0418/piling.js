@@ -5071,7 +5071,7 @@ const createPilingJs = (rootElement, initProps = {}) => {
           () => {
             const itemIds = pile.items.map((d) => d.id);
             const sourcePileId = levels.currSourcePileIds[0];
-            levels.leaveAll();
+            levels.leave();
             extractItemsFromPile(sourcePileId, itemIds);
           },
           EVENT_LISTENER_PASSIVE
