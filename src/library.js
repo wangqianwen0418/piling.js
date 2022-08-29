@@ -5293,6 +5293,11 @@ const createPilingJs = (rootElement, initProps = {}) => {
 
   const whenInit = init();
 
+  // each pile is [pileId, pileState]
+  const setPiles = (piles) => {
+    store.dispatch(createAction.setPiles(piles));
+  };
+
   return {
     // Properties
     get renderer() {
@@ -5303,6 +5308,7 @@ const createPilingJs = (rootElement, initProps = {}) => {
     },
     // Methods
     arrangeBy,
+    setPiles,
     destroy,
     exportState,
     get,

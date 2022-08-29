@@ -24822,7 +24822,12 @@ b" + i + "*=d\
       pubSub.clear();
     };
 
-    var whenInit = init();
+    var whenInit = init(); // each pile is [pileId, pileState]
+
+    var setPiles = function setPiles(piles) {
+      store.dispatch(createAction.setPiles(piles));
+    };
+
     return {
       // Properties
       get renderer() {
@@ -24835,6 +24840,7 @@ b" + i + "*=d\
 
       // Methods
       arrangeBy: arrangeBy,
+      setPiles: setPiles,
       destroy: destroy,
       exportState: exportState,
       get: get,
